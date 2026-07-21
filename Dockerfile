@@ -6,13 +6,13 @@ ARG BASE_VARIANT=alpine
 # It must be a supported tag in the docker.io/library/alpine image repository
 # that's also available as alpine image variant for the Golang version used.
 ARG ALPINE_VERSION=3.23
-ARG BASE_DEBIAN_DISTRO=bookworm
+ARG BASE_DEBIAN_DISTRO=trixie
 
 ARG GO_VERSION=1.26.4
 
 # XX_VERSION specifies the version of the xx utility to use.
 # It must be a valid tag in the docker.io/tonistiigi/xx image repository.
-ARG XX_VERSION=1.9.0
+ARG XX_VERSION=master
 
 # GOVERSIONINFO_VERSION is the version of GoVersionInfo to install.
 # It must be a valid tag from https://github.com/josephspurrier/goversioninfo
@@ -32,7 +32,7 @@ ARG BUILDX_VERSION=0.34.1
 # on Docker Hub.
 ARG COMPOSE_VERSION=v5.1.3
 
-FROM --platform=$BUILDPLATFORM tonistiigi/xx:${XX_VERSION} AS xx
+FROM --platform=$BUILDPLATFORM ghcr.io/loong64/tonistiigi/xx:${XX_VERSION} AS xx
 
 FROM --platform=$BUILDPLATFORM golang:${GO_VERSION}-alpine${ALPINE_VERSION} AS build-base-alpine
 ENV GOTOOLCHAIN=local
