@@ -6,7 +6,7 @@ ARG BASE_VARIANT=alpine
 # It must be a supported tag in the docker.io/library/alpine image repository
 # that's also available as alpine image variant for the Golang version used.
 ARG ALPINE_VERSION=3.23
-ARG BASE_DEBIAN_DISTRO=bookworm
+ARG BASE_DEBIAN_DISTRO=trixie
 
 ARG GO_VERSION=1.26.10
 
@@ -32,7 +32,7 @@ ARG BUILDX_VERSION=0.38.0
 # on Docker Hub.
 ARG COMPOSE_VERSION=v5.6.0
 
-FROM --platform=$BUILDPLATFORM tonistiigi/xx:${XX_VERSION} AS xx
+FROM --platform=$BUILDPLATFORM ghcr.io/loong64/tonistiigi/xx:${XX_VERSION} AS xx
 
 FROM --platform=$BUILDPLATFORM golang:${GO_VERSION}-alpine${ALPINE_VERSION} AS build-base-alpine
 ENV GOTOOLCHAIN=local
