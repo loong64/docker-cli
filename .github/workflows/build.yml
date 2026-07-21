@@ -113,17 +113,18 @@ jobs:
       vars: |
         VERSION=${{ github.ref }}
       meta-images: |
-        dockereng/cli-bin
+        ghcr.io/loong64/dockereng/cli-bin
       meta-tags: |
         type=semver,pattern={{version}}
         type=ref,event=branch
         type=ref,event=pr
         type=semver,pattern={{major}}
         type=semver,pattern={{major}}.{{minor}}
-      registry-identities: |
-        - type: dockerhub
-          username: dockereng
-          connection_id: ${{ vars.DOCKERHUB_OIDC_CONNECTIONID }}
+    secrets:
+      registry-auths: |
+        - registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
   prepare-plugins:
     runs-on: ubuntu-26.04
